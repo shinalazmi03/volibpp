@@ -64,7 +64,7 @@
         .attack-line { position: absolute; top: 33.33%; width: 100%; border-top: 3px solid white; pointer-events: none;}
         .net { position: absolute; top: 0; width: 100%; height: 10px; background: repeating-linear-gradient(45deg, #444, #444 5px, #fff 5px, #fff 10px); border-bottom: 2px solid #222; z-index: 5; pointer-events: none;}
 
-        /* --- Kontrol Lapangan (Rotasi, Simpan, Reset) --- */
+        /* --- Kontrol Lapangan --- */
         .court-controls { width: 100%; display: flex; justify-content: space-between; gap: 8px; margin-top: 5px; }
         .btn-court { flex: 1; padding: 12px 5px; border: none; border-radius: 6px; font-weight: bold; color: white; cursor: pointer; font-size: 13px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         .btn-rotate { background-color: #17a2b8; }
@@ -81,9 +81,7 @@
             touch-action: none; 
             transition: transform 0.1s;
         }
-        /* Animasi mulus saat melakukan Rotasi / Reset */
         .player.animate-move { transition: top 0.5s ease-in-out, left 0.5s ease-in-out; }
-        
         .player.libero { background-color: var(--libero); }
         .player-number { font-size: 16px; line-height: 1; pointer-events: none; }
         .player-name { font-size: 10px; white-space: nowrap; position: absolute; bottom: -20px; color: #333; background: rgba(255,255,255,0.9); padding: 2px 4px; border-radius: 4px; font-weight: 600; pointer-events: none; }
@@ -91,16 +89,16 @@
         
         @keyframes shake { 0%, 100% { transform: translate(-50%, -50%) rotate(0deg); } 25% { transform: translate(-50%, -50%) rotate(-5deg); } 75% { transform: translate(-50%, -50%) rotate(5deg); } }
 
-        /* --- MODAL --- */
+        /* --- MODAL CUSTOM (Pengganti Alert & Confirm) --- */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; }
         .modal-box { background: white; padding: 20px; border-radius: 10px; width: 90%; max-width: 320px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); display: flex; flex-direction: column; gap: 12px; }
-        .modal-box h3 { margin: 0; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        .modal-box h3 { margin: 0; border-bottom: 2px solid #eee; padding-bottom: 10px; text-align: center;}
         .modal-box input, .modal-box select { padding: 10px; border: 1px solid #ccc; border-radius: 6px; width: 100%; box-sizing: border-box; }
         .modal-actions { display: flex; gap: 8px; margin-top: 10px; }
         .modal-actions button { flex: 1; padding: 10px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; color: white; }
         
         /* Toast Notification */
-        .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.85); color: white; padding: 10px 25px; border-radius: 20px; font-size: 14px; z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: none; }
+        .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.85); color: white; padding: 10px 25px; border-radius: 20px; font-size: 14px; z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: none; text-align: center; }
         .toast.show { display: block; opacity: 1; }
     </style>
 </head>
@@ -145,7 +143,7 @@
             </div>
             <ul class="bench-list" id="benchList"></ul>
             
-            <button style="background-color: #dc3545; width: 100%; margin-top: 20px; padding: 10px; border:none; border-radius:6px; color:white; font-size: 12px; cursor: pointer; font-weight: bold;" onclick="resetToFactory()">⚠️ Hapus & Kembali ke Awal</button>
+            <button style="background-color: #dc3545; width: 100%; margin-top: 20px; padding: 10px; border:none; border-radius:6px; color:white; font-size: 12px; cursor: pointer; font-weight: bold;" onclick="confirmResetFactory()">⚠️ Hapus & Kembali ke Awal</button>
         </div>
 
         <!-- Lapangan -->
@@ -156,7 +154,6 @@
                 <!-- Pemain digenerate disini -->
             </div>
             
-            <!-- Alat Kontrol Lapangan Global -->
             <div class="court-controls">
                 <button class="btn-court btn-rotate" onclick="rotatePlayers()">🔄 Putar Tim</button>
                 <button class="btn-court btn-save-data" onclick="saveData()">💾 Simpan</button>
@@ -186,9 +183,21 @@
             </div>
             <div class="modal-actions">
                 <button style="background: #28a745;" onclick="saveEditPlayer()">Simpan</button>
-                <button style="background: #6c757d;" onclick="closeModal()">Batal</button>
+                <button style="background: #6c757d;" onclick="closeModal('editModal')">Batal</button>
             </div>
-            <button style="background: #dc3545; width: 100%; margin-top: 5px; padding: 10px; border:none; border-radius: 6px; color:white; font-weight:bold; cursor:pointer;" onclick="deletePlayer()">🗑️ Hapus Pemain</button>
+            <button style="background: #dc3545; width: 100%; margin-top: 5px; padding: 10px; border:none; border-radius: 6px; color:white; font-weight:bold; cursor:pointer;" onclick="confirmDeletePlayer()">🗑️ Hapus Pemain</button>
+        </div>
+    </div>
+
+    <!-- MODAL KONFIRMASI UMUM (Anti Blokir) -->
+    <div class="modal-overlay" id="confirmModal">
+        <div class="modal-box">
+            <h3 id="confirmTitle" style="border: none; padding: 0;">Konfirmasi</h3>
+            <p id="confirmMessage" style="text-align: center; font-size: 14px; margin: 5px 0 15px 0; color: #555;">Apakah Anda yakin?</p>
+            <div class="modal-actions">
+                <button id="btnConfirmYes" style="background: #dc3545;">Ya, Lanjutkan</button>
+                <button style="background: #6c757d;" onclick="closeModal('confirmModal')">Batal</button>
+            </div>
         </div>
     </div>
 
@@ -210,28 +219,34 @@
         let idCounter = 10;
         let subPendingPlayerId = null; 
         let editingPlayerId = null;
+        let activeConfirmAction = null;
 
-        const courtEl = document.getElementById('court');
-        const benchListEl = document.getElementById('benchList');
-        const subAlertEl = document.getElementById('subAlert');
-        const editModalEl = document.getElementById('editModal');
+        // Mendeklarasikan elemen DOM
+        let courtEl, benchListEl, subAlertEl, editModalEl, confirmModalEl;
 
-        // --- SISTEM PENYIMPANAN DATA ---
+        // --- SISTEM PENYIMPANAN DATA & PEMULIHAN OTOMATIS ---
         function loadData(withAnimation = false) {
             try {
                 const savedData = localStorage.getItem('volleyPlayersData');
                 const savedId = localStorage.getItem('volleyIdCounter');
+                
                 if (savedData) {
                     players = JSON.parse(savedData);
-                    if (!Array.isArray(players)) throw new Error("Data rusak"); 
+                    
+                    // PEMULIHAN OTOMATIS: Jika array kosong (bug), kembalikan ke default
+                    if (!Array.isArray(players) || players.length === 0) {
+                        throw new Error("Data Kosong");
+                    }
                     idCounter = savedId ? parseInt(savedId) : 20;
                 } else {
                     players = JSON.parse(JSON.stringify(DEFAULT_PLAYERS));
                     idCounter = 10;
                 }
             } catch (error) {
+                // Jika terjadi error pada cache HP pengguna, paksa reset ke formasi awal
                 players = JSON.parse(JSON.stringify(DEFAULT_PLAYERS));
                 idCounter = 10;
+                saveData(); // Timpa data yang rusak
             }
             render(withAnimation);
         }
@@ -240,23 +255,32 @@
             try {
                 localStorage.setItem('volleyPlayersData', JSON.stringify(players));
                 localStorage.setItem('volleyIdCounter', idCounter.toString());
-                showToast("💾 Formasi Disimpan!");
-            } catch (error) { console.error(error); }
+            } catch (error) { console.error("Gagal menyimpan ke penyimpanan lokal."); }
         }
 
         function restoreData() {
-            loadData(true); // Gunakan animasi saat mereset
+            loadData(true);
             showToast("⏮️ Posisi Dikembalikan!");
         }
 
-        function resetToFactory() {
-            if (confirm("Hapus seluruh data tim dan kembali ke pengaturan awal?")) {
-                localStorage.removeItem('volleyPlayersData');
-                localStorage.removeItem('volleyIdCounter');
-                loadData(true);
-                showToast("⚠️ Data di-reset ke awal!");
-            }
+        // --- SISTEM MODAL CUSTOM (Pengganti Alert & Confirm) ---
+        function openConfirmModal(title, message, actionCallback) {
+            document.getElementById('confirmTitle').innerText = title;
+            document.getElementById('confirmMessage').innerText = message;
+            activeConfirmAction = actionCallback;
+            confirmModalEl.style.display = 'flex';
         }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            if (modalId === 'editModal') editingPlayerId = null;
+            if (modalId === 'confirmModal') activeConfirmAction = null;
+        }
+
+        document.getElementById('btnConfirmYes').addEventListener('click', () => {
+            if (activeConfirmAction) activeConfirmAction();
+            closeModal('confirmModal');
+        });
 
         function showToast(message) {
             const toast = document.getElementById('toast');
@@ -269,47 +293,75 @@
             }, 2500);
         }
 
-        // --- FITUR ROTASI PEMAIN (Algoritma Cerdas) ---
-        function rotatePlayers() {
-            // Ambil hanya pemain yang ada di lapangan
-            let courtPlayers = players.filter(p => p.location === 'court');
+        // --- AKSI PENGGUNA ---
+        function confirmResetFactory() {
+            openConfirmModal("Reset Pabrik", "Hapus seluruh pemain dan kembalikan ke formasi awal?", () => {
+                localStorage.removeItem('volleyPlayersData');
+                localStorage.removeItem('volleyIdCounter');
+                loadData(true);
+                showToast("⚠️ Data di-reset ke awal!");
+            });
+        }
+
+        function confirmDeletePlayer() {
+            openConfirmModal("Hapus Pemain", "Keluarkan pemain ini dari tim Anda secara permanen?", () => {
+                players = players.filter(x => x.id !== editingPlayerId);
+                closeModal('editModal');
+                saveData();
+                render();
+                showToast("🗑️ Pemain dihapus.");
+            });
+        }
+
+        function addNewPlayer() {
+            const name = document.getElementById('nameInput').value;
+            const num = document.getElementById('numberInput').value;
+            const isLibero = document.getElementById('roleInput').value === 'libero';
+
+            if (!name || !num) { 
+                showToast("⚠️ Harap isi Nama dan Nomor Punggung!"); 
+                return; 
+            }
+
+            players.push({
+                id: idCounter++, name: name, number: parseInt(num),
+                isLibero: isLibero, location: 'bench', x: 0, y: 0
+            });
+            document.getElementById('nameInput').value = '';
+            document.getElementById('numberInput').value = '';
             
+            saveData(); 
+            render();
+            showToast("✅ Pemain Ditambahkan!");
+        }
+
+        function rotatePlayers() {
+            let courtPlayers = players.filter(p => p.location === 'court');
             if (courtPlayers.length <= 1) {
                 showToast("⚠️ Butuh minimal 2 pemain di lapangan untuk rotasi!");
                 return;
             }
 
-            // 1. Cari Titik Tengah (Centroid) dari semua pemain di lapangan
             let cx = 0, cy = 0;
             courtPlayers.forEach(p => { cx += p.x; cy += p.y; });
-            cx /= courtPlayers.length;
-            cy /= courtPlayers.length;
+            cx /= courtPlayers.length; cy /= courtPlayers.length;
 
-            // 2. Urutkan pemain melingkar berdasarkan sudut (angle) dari Titik Tengah
-            // Math.atan2 memberikan sudut dari -PI hingga PI (Kiri Atas ke Kiri Bawah)
-            // Ini akan meniru arah putaran jarum jam pada bola voli.
             courtPlayers.sort((a, b) => {
-                let angleA = Math.atan2(a.y - cy, a.x - cx);
-                let angleB = Math.atan2(b.y - cy, b.x - cx);
-                return angleA - angleB;
+                return Math.atan2(a.y - cy, a.x - cx) - Math.atan2(b.y - cy, b.x - cx);
             });
 
-            // 3. Ekstrak koordinat (X,Y) mereka yang sekarang
             let currentCoords = courtPlayers.map(p => ({ x: p.x, y: p.y }));
-
-            // 4. Geser setiap pemain ke titik koordinat teman di sebelahnya (Rotasi)
             courtPlayers.forEach((p, index) => {
-                // Bergeser 1 langkah ke depan dalam array koordinat
                 let nextIndex = (index + 1) % courtPlayers.length;
                 p.x = currentCoords[nextIndex].x;
                 p.y = currentCoords[nextIndex].y;
             });
 
-            render(true); // Render dengan animasi menyala
+            render(true);
             showToast("🔄 Tim Berhasil Diputar!");
+            saveData();
         }
 
-        // --- MANAJEMEN MODE ---
         function setMode(mode) {
             if (mode === 'edit') {
                 document.body.classList.remove('strategi-mode');
@@ -341,10 +393,8 @@
             const div = document.createElement('div');
             div.className = `player ${player.isLibero ? 'libero' : ''}`;
             
-            // Tambahkan animasi meluncur jika diminta (saat Rotasi atau Reset)
             if(withAnimation) {
                 div.classList.add('animate-move');
-                // Hapus kelas agar saat digeser manual tidak lag
                 setTimeout(() => div.classList.remove('animate-move'), 550);
             }
 
@@ -378,4 +428,153 @@
                     <span class="bench-name">${player.name}</span>
                 </div>
                 <div class="bench-actions">
-                    <button class="btn-edit-small" onclick="
+                    <button class="btn-edit-small" onclick="openEditModal(${player.id})">✎ Edit</button>
+                    <button class="btn-sub" style="background-color:${btnBg}" onclick="toggleSubstitution(${player.id})">${btnText}</button>
+                </div>
+            `;
+            benchListEl.appendChild(li);
+        }
+
+        function openEditModal(playerId) {
+            editingPlayerId = playerId;
+            const p = players.find(x => x.id === playerId);
+            document.getElementById('editName').value = p.name;
+            document.getElementById('editNumber').value = p.number;
+            document.getElementById('editRole').value = p.isLibero ? 'libero' : 'regular';
+            editModalEl.style.display = 'flex';
+        }
+
+        function saveEditPlayer() {
+            const p = players.find(x => x.id === editingPlayerId);
+            if(p) {
+                p.name = document.getElementById('editName').value;
+                p.number = parseInt(document.getElementById('editNumber').value);
+                p.isLibero = document.getElementById('editRole').value === 'libero';
+            }
+            closeModal('editModal');
+            saveData();
+            render();
+            showToast("✅ Perubahan Disimpan");
+        }
+
+        function toggleSubstitution(benchPlayerId) {
+            if (subPendingPlayerId === benchPlayerId) {
+                subPendingPlayerId = null;
+                subAlertEl.style.display = 'none';
+                courtEl.classList.remove('sub-mode');
+            } else {
+                subPendingPlayerId = benchPlayerId;
+                subAlertEl.style.display = 'block';
+                courtEl.classList.add('sub-mode');
+            }
+            render();
+        }
+
+        function executeSubstitution(courtPlayerId) {
+            if (!subPendingPlayerId) return;
+            const courtP = players.find(p => p.id === courtPlayerId);
+            const benchP = players.find(p => p.id === subPendingPlayerId);
+
+            benchP.x = courtP.x; benchP.y = courtP.y;
+            benchP.location = 'court'; courtP.location = 'bench';
+
+            subPendingPlayerId = null;
+            subAlertEl.style.display = 'none';
+            courtEl.classList.remove('sub-mode');
+            saveData(); 
+            render();
+            showToast("🔄 Pemain Ditukar");
+        }
+
+        // --- SISTEM DRAG & DROP ---
+        let activeElement = null;
+        let activePlayerObj = null;
+        let isDragging = false;
+
+        function setupDragAndClick(element, player) {
+            function startDrag(e) {
+                if(e.type === 'touchstart' && e.touches && e.touches.length > 1) return;
+                isDragging = false;
+                activeElement = element;
+                activePlayerObj = player;
+                element.classList.remove('animate-move');
+            }
+            element.addEventListener('pointerdown', startDrag);
+            element.addEventListener('mousedown', startDrag);
+            element.addEventListener('touchstart', startDrag, {passive: false});
+
+            element.addEventListener('click', () => {
+                if (isDragging) return; 
+                if (subPendingPlayerId !== null) {
+                    executeSubstitution(player.id);
+                } else if (!document.body.classList.contains('strategi-mode')) {
+                    openEditModal(player.id);
+                }
+            });
+        }
+
+        function drag(e) {
+            if (!activeElement) return;
+            isDragging = true;
+            
+            if (e.type === 'touchmove' && e.cancelable) {
+                e.preventDefault(); 
+            }
+
+            let clientX = e.clientX;
+            let clientY = e.clientY;
+            if (e.type.includes('touch')) {
+                if (!e.touches || e.touches.length === 0) return;
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            }
+
+            const rect = courtEl.getBoundingClientRect();
+            let xPercent = ((clientX - rect.left) / rect.width) * 100;
+            let yPercent = ((clientY - rect.top) / rect.height) * 100;
+
+            xPercent = Math.max(5, Math.min(xPercent, 95));
+            yPercent = Math.max(5, Math.min(yPercent, 95));
+
+            activeElement.style.left = xPercent + '%';
+            activeElement.style.top = yPercent + '%';
+
+            activePlayerObj.x = xPercent;
+            activePlayerObj.y = yPercent;
+        }
+
+        function stopDrag() {
+            activeElement = null;
+            activePlayerObj = null;
+        }
+
+        document.addEventListener('pointermove', drag);
+        document.addEventListener('pointerup', stopDrag);
+        document.addEventListener('mousemove', drag);
+        document.addEventListener('mouseup', stopDrag);
+        document.addEventListener('touchmove', drag, {passive: false});
+        document.addEventListener('touchend', stopDrag);
+
+        // --- INIT ---
+        function initApp() {
+            if (window.appInitialized) return;
+            window.appInitialized = true;
+            
+            // Pengambilan elemen DOM dipastikan hanya saat dokumen sudah dimuat
+            courtEl = document.getElementById('court');
+            benchListEl = document.getElementById('benchList');
+            subAlertEl = document.getElementById('subAlert');
+            editModalEl = document.getElementById('editModal');
+            confirmModalEl = document.getElementById('confirmModal');
+
+            loadData(false);
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initApp);
+        } else {
+            initApp();
+        }
+    </script>
+</body>
+</html> function render(withAnimation
