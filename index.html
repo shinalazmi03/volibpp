@@ -25,139 +25,71 @@
         }
 
         /* --- Header & Toggle Mode --- */
-        .header {
-            width: 100%;
-            max-width: 800px;
-            text-align: center;
-            margin-bottom: 15px;
-        }
-        
+        .header { width: 100%; max-width: 800px; text-align: center; margin-bottom: 15px; }
         .header h2 { margin: 5px 0 15px 0; font-size: 20px; }
 
-        .mode-toggle {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            background: white;
-            padding: 5px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .mode-btn {
-            flex: 1;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            background: transparent;
-            color: #666;
-            transition: all 0.3s;
-        }
-
-        .mode-btn.active {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
+        .mode-toggle { display: flex; justify-content: center; gap: 10px; background: white; padding: 5px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .mode-btn { flex: 1; padding: 10px 15px; border: none; border-radius: 6px; font-size: 14px; font-weight: bold; cursor: pointer; background: transparent; color: #666; transition: all 0.3s; }
+        .mode-btn.active { background: var(--primary); color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
 
         /* --- Area Input --- */
-        .input-section {
-            background: white;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            align-items: flex-end;
-            margin-bottom: 20px;
-            width: 100%;
-            max-width: 800px;
-            box-sizing: border-box;
-            justify-content: space-between;
-        }
-
-        .input-group {
-            display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 100px;
-        }
+        .input-section { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; margin-bottom: 20px; width: 100%; max-width: 800px; box-sizing: border-box; justify-content: space-between; }
+        .input-group { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 100px; }
         .input-group label { font-size: 11px; font-weight: bold; color: #666; }
-        .input-section input, .input-section select {
-            padding: 8px; border: 1px solid #ccc; border-radius: 6px; font-size: 13px; width: 100%; box-sizing: border-box;
-        }
-
-        .btn-add {
-            padding: 8px 15px; background-color: #28a745; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; height: 35px; flex: 1; min-width: 100px;
-        }
+        .input-section input, .input-section select { padding: 8px; border: 1px solid #ccc; border-radius: 6px; font-size: 13px; width: 100%; box-sizing: border-box; }
+        .btn-add { padding: 8px 15px; background-color: #28a745; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; height: 35px; flex: 1; min-width: 100px; }
 
         /* --- Layout Utama --- */
-        .main-layout {
-            display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; width: 100%; max-width: 900px;
-        }
+        .main-layout { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; width: 100%; max-width: 900px; }
 
         /* --- Bangku Cadangan --- */
-        .bench-panel {
-            background: white; padding: 15px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 100%; max-width: 320px; box-sizing: border-box;
-        }
+        .bench-panel { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 100%; max-width: 320px; box-sizing: border-box; }
         .bench-panel h3 { margin-top: 0; border-bottom: 2px solid #eee; padding-bottom: 10px; font-size: 16px; }
-
         .bench-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; max-height: 250px; overflow-y: auto; }
         .bench-item { display: flex; align-items: center; justify-content: space-between; background: #f8f9fa; padding: 8px; border-radius: 6px; border-left: 4px solid var(--primary); }
         .bench-item.is-libero { border-left-color: var(--libero); }
-
         .bench-info { display: flex; align-items: center; gap: 8px; }
         .bench-number { background: #e9ecef; padding: 2px 6px; border-radius: 4px; font-weight: bold; font-size: 12px; }
         .bench-name { font-weight: 500; font-size: 13px;}
-
         .bench-actions { display: flex; gap: 5px; }
         .btn-sub { background-color: #007bff; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: bold; }
         .btn-edit-small { background-color: #ffc107; color: #000; border: none; padding: 5px 8px; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: bold; }
-
         .sub-alert { display: none; background-color: #fff3cd; color: #856404; padding: 10px; border-radius: 6px; margin-bottom: 10px; border: 1px solid #ffeeba; font-size: 12px; text-align: center; animation: pulse 1s infinite; }
+        
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
 
         /* --- Lapangan --- */
         .court-wrapper { width: 100%; max-width: 450px; display: flex; flex-direction: column; align-items: center; gap: 15px;}
-        .court { width: 100%; aspect-ratio: 1 / 1; background-color: var(--court); border: 4px solid white; position: relative; box-shadow: 0 5px 15px rgba(0,0,0,0.2); border-radius: 4px; box-sizing: border-box; overflow: hidden; }
+        .court { width: 100%; aspect-ratio: 1 / 1; background-color: var(--court); border: 4px solid white; position: relative; box-shadow: 0 5px 15px rgba(0,0,0,0.2); border-radius: 4px; box-sizing: border-box; overflow: hidden; touch-action: none; /* Penting untuk mobile */ }
+        .attack-line { position: absolute; top: 33.33%; width: 100%; border-top: 3px solid white; pointer-events: none;}
+        .net { position: absolute; top: 0; width: 100%; height: 10px; background: repeating-linear-gradient(45deg, #444, #444 5px, #fff 5px, #fff 10px); border-bottom: 2px solid #222; z-index: 5; pointer-events: none;}
 
-        .attack-line { position: absolute; top: 33.33%; width: 100%; border-top: 3px solid white; }
-        .net { position: absolute; top: 0; width: 100%; height: 10px; background: repeating-linear-gradient(45deg, #444, #444 5px, #fff 5px, #fff 10px); border-bottom: 2px solid #222; z-index: 5; }
-
-        /* --- Kontrol Mode Strategi (Simpan & Reset) --- */
-        .strategy-controls {
-            display: none; /* Sembunyikan default */
-            width: 100%;
-            justify-content: center;
-            gap: 10px;
-        }
-        .btn-action {
-            flex: 1; padding: 12px; border: none; border-radius: 6px; font-weight: bold; color: white; cursor: pointer; font-size: 14px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
+        /* --- Kontrol Mode Strategi --- */
+        .strategy-controls { display: none; width: 100%; justify-content: center; gap: 10px; }
+        .btn-action { flex: 1; padding: 12px; border: none; border-radius: 6px; font-weight: bold; color: white; cursor: pointer; font-size: 14px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         .btn-save-data { background-color: #28a745; }
         .btn-reset-data { background-color: #6c757d; }
 
-        /* --- Mode Strategi CSS --- */
-        body.strategi-mode .input-section,
-        body.strategi-mode .bench-panel { display: none; }
+        /* --- Mode CSS --- */
+        body.strategi-mode .input-section, body.strategi-mode .bench-panel { display: none; }
         body.strategi-mode .court-wrapper { max-width: 600px; }
-        body.strategi-mode .strategy-controls { display: flex; } /* Tampilkan di mode strategi */
+        body.strategi-mode .strategy-controls { display: flex; }
 
         /* Desain Pemain */
         .player {
-            width: 44px; height: 44px; background-color: var(--primary); color: white; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: bold; position: absolute; transform: translate(-50%, -50%); cursor: grab; box-shadow: 2px 3px 6px rgba(0,0,0,0.4); user-select: none; z-index: 10; touch-action: none; transition: transform 0.1s;
+            width: 44px; height: 44px; background-color: var(--primary); color: white; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: bold; position: absolute; transform: translate(-50%, -50%); cursor: grab; box-shadow: 2px 3px 6px rgba(0,0,0,0.4); user-select: none; z-index: 10; 
+            touch-action: none; /* Cegah scroll browser saat sentuh pemain */
+            transition: transform 0.1s;
         }
-        /* Efek saat animasi reset */
         .player.animate-move { transition: top 0.4s ease, left 0.4s ease; }
         .player.libero { background-color: var(--libero); }
-        .player-number { font-size: 16px; line-height: 1; }
+        .player-number { font-size: 16px; line-height: 1; pointer-events: none; }
         .player-name { font-size: 10px; white-space: nowrap; position: absolute; bottom: -20px; color: #333; background: rgba(255,255,255,0.9); padding: 2px 4px; border-radius: 4px; font-weight: 600; pointer-events: none; }
-
         .court.sub-mode .player { animation: shake 0.8s infinite; cursor: crosshair; }
+        
         @keyframes shake { 0%, 100% { transform: translate(-50%, -50%) rotate(0deg); } 25% { transform: translate(-50%, -50%) rotate(-5deg); } 75% { transform: translate(-50%, -50%) rotate(5deg); } }
 
-        /* --- MODAL EDIT PEMAIN --- */
+        /* --- MODAL --- */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; }
         .modal-box { background: white; padding: 20px; border-radius: 10px; width: 90%; max-width: 320px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); display: flex; flex-direction: column; gap: 12px; }
         .modal-box h3 { margin: 0; border-bottom: 2px solid #eee; padding-bottom: 10px; }
@@ -166,11 +98,8 @@
         .modal-actions button { flex: 1; padding: 10px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; color: white; }
         
         /* Toast Notification */
-        .toast {
-            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.85); color: white; padding: 10px 25px; border-radius: 20px; font-size: 14px; z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: none;
-        }
+        .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.85); color: white; padding: 10px 25px; border-radius: 20px; font-size: 14px; z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: none; }
         .toast.show { display: block; opacity: 1; }
-
     </style>
 </head>
 <body>
@@ -214,7 +143,6 @@
             </div>
             <ul class="bench-list" id="benchList"></ul>
             
-            <!-- Tombol Hapus Semua (Reset Pabrik) -->
             <button class="btn-action" style="background-color: #dc3545; width: 100%; margin-top: 20px; font-size: 12px;" onclick="resetToFactory()">⚠️ Hapus & Kembali ke Awal</button>
         </div>
 
@@ -261,11 +189,9 @@
         </div>
     </div>
 
-    <!-- TOAST NOTIFICATION -->
     <div id="toast" class="toast">Data Tersimpan!</div>
 
     <script>
-        // Data Formasi Bawaan Pabrik (Default)
         const DEFAULT_PLAYERS = [
             { id: 1, name: "Toser", number: 7, isLibero: false, location: "court", x: 80, y: 20 },
             { id: 2, name: "Smeser 1", number: 9, isLibero: false, location: "court", x: 20, y: 20 },
@@ -287,17 +213,24 @@
         const subAlertEl = document.getElementById('subAlert');
         const editModalEl = document.getElementById('editModal');
 
-        // --- SISTEM PENYIMPANAN DATA (LOCAL STORAGE) ---
+        // --- SISTEM PENYIMPANAN DATA (LEBIH AMAN/ROBUST) ---
         function loadData(withAnimation = false) {
-            const savedData = localStorage.getItem('volleyPlayersData');
-            const savedId = localStorage.getItem('volleyIdCounter');
+            try {
+                const savedData = localStorage.getItem('volleyPlayersData');
+                const savedId = localStorage.getItem('volleyIdCounter');
 
-            if (savedData) {
-                // Gunakan data tersimpan jika ada
-                players = JSON.parse(savedData);
-                idCounter = savedId ? parseInt(savedId) : 20;
-            } else {
-                // Kloning dari data bawaan pabrik
+                if (savedData) {
+                    players = JSON.parse(savedData);
+                    // Pastikan format data tidak rusak
+                    if (!Array.isArray(players)) throw new Error("Data rusak"); 
+                    idCounter = savedId ? parseInt(savedId) : 20;
+                } else {
+                    players = JSON.parse(JSON.stringify(DEFAULT_PLAYERS));
+                    idCounter = 10;
+                }
+            } catch (error) {
+                console.error("Gagal memuat data:", error);
+                // Jika error, kembali ke settingan awal (Bypass error blank)
                 players = JSON.parse(JSON.stringify(DEFAULT_PLAYERS));
                 idCounter = 10;
             }
@@ -305,19 +238,22 @@
         }
 
         function saveData() {
-            localStorage.setItem('volleyPlayersData', JSON.stringify(players));
-            localStorage.setItem('volleyIdCounter', idCounter.toString());
-            showToast("💾 Formasi Berhasil Disimpan!");
+            try {
+                localStorage.setItem('volleyPlayersData', JSON.stringify(players));
+                localStorage.setItem('volleyIdCounter', idCounter.toString());
+                showToast("💾 Formasi Disimpan!");
+            } catch (error) {
+                console.error("Gagal menyimpan:", error);
+            }
         }
 
         function restoreData() {
-            // Memuat ulang data posisi dari memori (mereset geseran strategi)
             loadData(true);
             showToast("🔄 Posisi Dikembalikan!");
         }
 
         function resetToFactory() {
-            if (confirm("PERINGATAN!\nIni akan menghapus seluruh data tim Anda dan mengembalikannya ke pengaturan awal. Lanjutkan?")) {
+            if (confirm("Hapus seluruh data tim dan kembali ke pengaturan awal?")) {
                 localStorage.removeItem('volleyPlayersData');
                 localStorage.removeItem('volleyIdCounter');
                 loadData();
@@ -342,8 +278,6 @@
                 document.body.classList.remove('strategi-mode');
                 document.getElementById('btnEdit').classList.add('active');
                 document.getElementById('btnStrategi').classList.remove('active');
-                
-                // Tiap kali balik ke edit mode otomatis simpan state terakhir (opsional)
                 saveData(); 
             } else {
                 document.body.classList.add('strategi-mode');
@@ -355,6 +289,8 @@
 
         // --- RENDER UI ---
         function render(withAnimation = false) {
+            if(!courtEl || !benchListEl) return; // Mencegah error jika elemen belum dirender Vercel
+            
             const existingPlayers = courtEl.querySelectorAll('.player');
             existingPlayers.forEach(p => p.remove());
             benchListEl.innerHTML = '';
@@ -370,7 +306,6 @@
             div.className = `player ${player.isLibero ? 'libero' : ''}`;
             if(withAnimation) {
                 div.classList.add('animate-move');
-                // Hapus kelas animasi setelah transisi selesai agar drag tetap lancar
                 setTimeout(() => div.classList.remove('animate-move'), 400);
             }
 
@@ -411,7 +346,6 @@
             benchListEl.appendChild(li);
         }
 
-        // --- TAMBAH PEMAIN ---
         function addNewPlayer() {
             const name = document.getElementById('nameInput').value;
             const num = document.getElementById('numberInput').value;
@@ -426,13 +360,163 @@
             document.getElementById('nameInput').value = '';
             document.getElementById('numberInput').value = '';
             
-            saveData(); // Auto simpan jika ada pemain baru
+            saveData(); 
             render();
         }
 
-        // --- FITUR EDIT & HAPUS ---
         function openEditModal(playerId) {
             editingPlayerId = playerId;
             const p = players.find(x => x.id === playerId);
             document.getElementById('editName').value = p.name;
-            document.getElementById('editNumber').value = 
+            document.getElementById('editNumber').value = p.number;
+            document.getElementById('editRole').value = p.isLibero ? 'libero' : 'regular';
+            editModalEl.style.display = 'flex';
+        }
+
+        function closeModal() {
+            editModalEl.style.display = 'none';
+            editingPlayerId = null;
+        }
+
+        function saveEditPlayer() {
+            const p = players.find(x => x.id === editingPlayerId);
+            if(p) {
+                p.name = document.getElementById('editName').value;
+                p.number = parseInt(document.getElementById('editNumber').value);
+                p.isLibero = document.getElementById('editRole').value === 'libero';
+            }
+            closeModal();
+            saveData();
+            render();
+        }
+
+        function deletePlayer() {
+            if(confirm("Hapus pemain ini dari tim?")) {
+                players = players.filter(x => x.id !== editingPlayerId);
+                closeModal();
+                saveData();
+                render();
+            }
+        }
+
+        function toggleSubstitution(benchPlayerId) {
+            if (subPendingPlayerId === benchPlayerId) {
+                subPendingPlayerId = null;
+                subAlertEl.style.display = 'none';
+                courtEl.classList.remove('sub-mode');
+            } else {
+                subPendingPlayerId = benchPlayerId;
+                subAlertEl.style.display = 'block';
+                courtEl.classList.add('sub-mode');
+            }
+            render();
+        }
+
+        function executeSubstitution(courtPlayerId) {
+            if (!subPendingPlayerId) return;
+            const courtP = players.find(p => p.id === courtPlayerId);
+            const benchP = players.find(p => p.id === subPendingPlayerId);
+
+            benchP.x = courtP.x; benchP.y = courtP.y;
+            benchP.location = 'court'; courtP.location = 'bench';
+
+            subPendingPlayerId = null;
+            subAlertEl.style.display = 'none';
+            courtEl.classList.remove('sub-mode');
+            saveData(); 
+            render();
+        }
+
+        // --- SISTEM DRAG & DROP (DIPERBAIKI UNTUK MOBILE) ---
+        let activeElement = null;
+        let activePlayerObj = null;
+        let isDragging = false;
+
+        function setupDragAndClick(element, player) {
+            function startDrag(e) {
+                if(e.type === 'touchstart' && e.touches && e.touches.length > 1) return; // Abaikan zoom 2 jari
+                isDragging = false;
+                activeElement = element;
+                activePlayerObj = player;
+                element.classList.remove('animate-move');
+            }
+            // Gunakan event pointer jika tersedia (lebih stabil), jika tidak fallback ke touch/mouse
+            element.addEventListener('pointerdown', startDrag);
+            element.addEventListener('mousedown', startDrag);
+            element.addEventListener('touchstart', startDrag, {passive: false});
+
+            element.addEventListener('click', () => {
+                if (isDragging) return; 
+                if (subPendingPlayerId !== null) {
+                    executeSubstitution(player.id);
+                } else if (!document.body.classList.contains('strategi-mode')) {
+                    openEditModal(player.id);
+                }
+            });
+        }
+
+        function drag(e) {
+            if (!activeElement) return;
+            isDragging = true;
+            
+            // Cegah scroll saat menggeser pemain di HP
+            if (e.type === 'touchmove' && e.cancelable) {
+                e.preventDefault(); 
+            }
+
+            // Dapatkan kordinat secara aman untuk Mouse maupun Touch
+            let clientX = e.clientX;
+            let clientY = e.clientY;
+
+            if (e.type.includes('touch')) {
+                if (!e.touches || e.touches.length === 0) return;
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            }
+
+            const rect = courtEl.getBoundingClientRect();
+            let xPercent = ((clientX - rect.left) / rect.width) * 100;
+            let yPercent = ((clientY - rect.top) / rect.height) * 100;
+
+            xPercent = Math.max(5, Math.min(xPercent, 95));
+            yPercent = Math.max(5, Math.min(yPercent, 95));
+
+            activeElement.style.left = xPercent + '%';
+            activeElement.style.top = yPercent + '%';
+
+            activePlayerObj.x = xPercent;
+            activePlayerObj.y = yPercent;
+        }
+
+        function stopDrag() {
+            activeElement = null;
+            activePlayerObj = null;
+        }
+
+        // Event listener global
+        document.addEventListener('pointermove', drag);
+        document.addEventListener('pointerup', stopDrag);
+        document.addEventListener('mousemove', drag);
+        document.addEventListener('mouseup', stopDrag);
+        document.addEventListener('touchmove', drag, {passive: false});
+        document.addEventListener('touchend', stopDrag);
+
+        // --- INISIALISASI AMAN UNTUK VERCEL ---
+        // Memastikan Javascript langsung dieksekusi begitu DOM siap, 
+        // tidak perlu menunggu gambar / asset lain seperti pada window.onload
+        function initApp() {
+            if (window.appInitialized) return;
+            window.appInitialized = true;
+            loadData(false);
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initApp);
+        } else {
+            initApp();
+        }
+    </script>
+</body>
+</html>
+
+
